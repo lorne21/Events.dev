@@ -1,125 +1,97 @@
-/*!
- * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-
-/* Toggle Styles */
-
-#wrapper {
-    padding-left: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+* {
+  box-sizing: border-box;
 }
 
-#wrapper.toggled {
-    padding-left: 250px;
+body {
+  background-color: #343838;
+  font-size: 16px;
 }
 
-#sidebar-wrapper {
-    z-index: 1000;
-    position: fixed;
-    left: 250px;
-    width: 0;
-    height: 100%;
-    margin-left: -250px;
-    overflow-y: auto;
-    background: #000;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+#page-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-#wrapper.toggled #sidebar-wrapper {
-    width: 250px;
+
+#btn {
+  position: fixed;
+  z-index: 5;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+  -webkit-transition: left 500ms cubic-bezier(0.6, 0.05, 0.28, 0.91);
+          transition: left 500ms cubic-bezier(0.6, 0.05, 0.28, 0.91);
+}
+#btn div {
+  width: 35px;
+  height: 2px;
+  margin-bottom: 8px;
+  background-color: #00DFFC;
+  -webkit-transition: -webkit-transform 500ms cubic-bezier(0.6, 0.05, 0.28, 0.91), opacity 500ms, background-color 250ms;
+          transition: transform 500ms cubic-bezier(0.6, 0.05, 0.28, 0.91), opacity 500ms, background-color 250ms;
 }
 
-#page-content-wrapper {
-    width: 100%;
-    position: absolute;
-    padding: 15px;
+#btn.active {
+  left: 230px;
+}
+#btn.active div {
+  background-color: #343838;
+}
+#btn.active #top {
+  -webkit-transform: translateY(10px) rotate(-135deg);
+      -ms-transform: translateY(10px) rotate(-135deg);
+          transform: translateY(10px) rotate(-135deg);
+}
+#btn.active #middle {
+  opacity: 0;
+  /* transform: rotate(135deg); */
+}
+#btn.active #bottom {
+  -webkit-transform: translateY(-10px) rotate(-45deg);
+      -ms-transform: translateY(-10px) rotate(-45deg);
+          transform: translateY(-10px) rotate(-45deg);
 }
 
-#wrapper.toggled #page-content-wrapper {
-    position: absolute;
-    margin-right: -250px;
+#box {
+  position: fixed;
+  z-index: 4;
+  overflow: auto;
+  top: 0px;
+  left: -275px;
+  width: 275px;
+  opacity: 0;
+  padding: 20px 0px;
+  height: 100%;
+  background-color: #f6f6f6;
+  color: #343838;
+  -webkit-transition: all 350ms cubic-bezier(0.6, 0.05, 0.28, 0.91);
+          transition: all 350ms cubic-bezier(0.6, 0.05, 0.28, 0.91);
 }
 
-/* Sidebar Styles */
-
-.sidebar-nav {
-    position: absolute;
-    top: 0;
-    width: 250px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+#box.active {
+  left: 0px;
+  opacity: 1;
 }
 
-.sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px;
+#items {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
-
-.sidebar-nav li a {
-    display: block;
-    text-decoration: none;
-    color: #999999;
+#items .item {
+  position: relative;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 15px 30px;
+  -webkit-transition: all 250ms;
+          transition: all 250ms;
 }
-
-.sidebar-nav li a:hover {
-    text-decoration: none;
-    color: #fff;
-    background: rgba(255,255,255,0.2);
-}
-
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-    text-decoration: none;
-}
-
-.sidebar-nav > .sidebar-brand {
-    height: 65px;
-    font-size: 18px;
-    line-height: 60px;
-}
-
-.sidebar-nav > .sidebar-brand a {
-    color: #999999;
-}
-
-.sidebar-nav > .sidebar-brand a:hover {
-    color: #fff;
-    background: none;
-}
-
-@media(min-width:768px) {
-    #wrapper {
-        padding-left: 250px;
-    }
-
-    #wrapper.toggled {
-        padding-left: 0;
-    }
-
-    #sidebar-wrapper {
-        width: 250px;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
-        width: 0;
-    }
-
-    #page-content-wrapper {
-        padding: 20px;
-        position: relative;
-    }
-
-    #wrapper.toggled #page-content-wrapper {
-        position: relative;
-        margin-right: 0;
-    }
+#items .item:hover {
+  padding: 15px 45px;
+  background-color: rgba(52, 56, 56, 0.2);
 }

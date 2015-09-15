@@ -69,6 +69,12 @@ class EventsController extends \BaseController {
             $event->price = Input::get('price');
             $event->start_time = Input::get('start_time');
             $event->end_time = Input::get('end_time');
+            $event->location = Input::get('location');
+            $event->address = Input::get('address');
+            $event->city = Input::get('city');
+            $event->state = Input::get('state');
+            $event->zip = Input::get('zip');
+            $event->user_id = 1;
             
             if (Input::hasFile('img')) {
                 $event->img = $image->move($directory);
@@ -129,6 +135,12 @@ class EventsController extends \BaseController {
             $event->price = Input::get('price');
             $event->start_time = Input::get('start_time');
             $event->end_time = Input::get('end_time');
+            $event->location = Input::get('location');
+            $event->address = Input::get('address');
+            $event->city = Input::get('city');
+            $event->state = Input::get('state');
+            $event->zip = Input::get('zip');
+            $event->user_id = 1;
             if (Input::hasFile('img')) {
                 $event->img = $image->move($directory);
             }

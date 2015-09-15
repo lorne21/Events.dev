@@ -2,6 +2,14 @@
 
 <style>
 
+label{
+    color: white;
+}
+
+.create{
+    color: white;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -26,20 +34,18 @@
 </style>
 
 @section('content')
-    <br>
-    <br>
       <div class="container">
-        <h1>Create an Event</h1>
+        <h1 class="create">Create an Event</h1>
 
         {{ Form::open(array('action' => array('EventsController@store'), 'files'=>true)) }}
-            <div class="form-group @if($errors->has('title')) has-error @endif">
+            <div class="form-group">
                 {{ Form::label('title', 'Event Name') }}
-                {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Event Name']) }}
+                {{ Form::text('title', null, ['class' => 'form-control']) }}
             </div>
 
-            <div class="form-group @if($errors->has('description')) has-error @endif">
+            <div class="form-group">
                 {{ Form::label('description', 'Event Description') }}
-                {{ Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Event Description']) }}
+                {{ Form::textarea('description', null, ['class' => 'form-control']) }}
             </div>
 
             <div class="form-group">
@@ -60,6 +66,31 @@
             <div class="form-group">
                 {{ Form::label('end_time', 'End Time') }}
                 {{ Form::time('end_time'); }}
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('location', 'Location') }}
+                {{ Form::text('location', null, ['class' => 'form-control']) }}
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('address', 'Address') }}
+                {{ Form::text('address', null, ['class' => 'form-control']) }}
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('city', 'City') }}
+                {{ Form::text('city', null, ['class' => 'form-control']) }}
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('state', 'State') }}
+                {{ Form::text('state', null, ['class' => 'form-control']) }}
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('zip', 'Zip Code') }}
+                {{ Form::text('zip', null, ['class' => 'form-control']) }}
             </div>
 
             <div class="form-group">
