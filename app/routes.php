@@ -10,10 +10,19 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-
 Route::get('/', function()
 {
-	return View::make('hello');
+	return Redirect::action('EventsController@index');
 });
 
+Route::get('events/manage', 'EventsController@getManage');
+
+Route::get('events/getList', 'EventsController@getList');
+
 Route::resource('events', 'EventsController');
+
+Route::get('login', 'HomeController@showLogin');
+
+Route::post('login', 'HomeController@doLogin');
+
+Route::get('logout', 'HomeController@doLogout');

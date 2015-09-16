@@ -9,7 +9,7 @@
         <meta name="keywords" content="jquery, conent slider, content carousel, circular, expanding, sliding, css3" />
     <meta name="author" content="Codrops" />
     <link rel="shortcut icon" href="../favicon.ico"> 
-        <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css" media="all" />
     <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow&v1' rel='stylesheet' type='text/css' />
@@ -21,6 +21,23 @@
 
     <div class="container">
       <h1>The Gig Is Up</h1>
+      <div class="container" style="padding-top: 50px">
+          @if (Session::has('successMessage'))
+              <div class="alert alert-success">{{{ Session::get('successMessage') }}}</div>
+          @endif
+          @if (Session::has('errorMessage'))
+              <div class="alert alert-danger">{{{ Session::get('errorMessage') }}}</div>
+          @endif
+          @if($errors->has())
+              <div class="alert alert-danger" role="alert">
+                  <ul>
+                      @foreach($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                      @endforeach
+                  </ul>
+              </div>
+          @endif
+      </div> <!-- /.container -->
       
       <div id="ca-container" class="ca-container">
         <div class="ca-wrapper">

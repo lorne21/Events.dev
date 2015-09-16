@@ -91,15 +91,16 @@ class EventsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show()
 	{
-		$event = CalendarEvent::find($id);
-        if(!$event) {
-            Session::flash('errorMessage', "Post with id of $id is not found");
-            App::abort(404);
-        }
-        Log::info("Event of id $id found");
-        return View::make('events.show')->with(array('event' => $event));
+		// $event = CalendarEvent::find($id);
+  //       if(!$event) {
+  //           Session::flash('errorMessage', "Post with id of $id is not found");
+  //           App::abort(404);
+  //       }
+  //       Log::info("Event of id $id found");
+        // return View::make('events.show')->with(array('event' => $event));
+        return View::make('events.show');
 	}
 	/**
 	 * Show the form for editing the specified resource.
@@ -157,7 +158,7 @@ class EventsController extends \BaseController {
 	{
         $event = CalendarEvent::find($id);
         if(!$event) {
-            Session::flash('errorMessage', "Post with id of $id is not found");
+            Session::flash('errorMessage', "Event with id of $id is not found");
             App::abort(404);
         }
         $event->delete();
@@ -168,6 +169,15 @@ class EventsController extends \BaseController {
     public function getManage()
     {
         return View::make('events.manage');
+    }
+
+    public function getList()
+    {
+        $query = CalendarEvent::with('user');
+
+        $events = $query->get();
+
+        return Response::json($events);
     }
 
 	
