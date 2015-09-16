@@ -82,7 +82,7 @@ class EventsController extends \BaseController {
             $event->save();
             Log::info("Event successfully saved.", Input::all());
             Session::flash('successMessage', 'You created ' . $event->title . ' event successfully');
-            return Redirect::action('EventsController@create');
+            return Redirect::action('EventsController@index');
         
     }
 	/**
@@ -135,7 +135,12 @@ class EventsController extends \BaseController {
             $event->date = Input::get('date');
             $event->price = Input::get('price');
             $event->start_time = Input::get('start_time');
-            $event->end_time = Input::get('end_time');
+            if (!empty(Input::get('end_time'))) {
+                $event->end_time = Input::get('end_time');
+            } else {
+                $event->end_time = null;
+            }
+
             $event->location = Input::get('location');
             $event->address = Input::get('address');
             $event->city = Input::get('city');
@@ -146,6 +151,9 @@ class EventsController extends \BaseController {
                 $event->img = $image->move($directory);
             }
             $event->save();
+
+            Session::flash('successMessage', 'You updated ' . $event->title . ' event successfully');
+            return Redirect::action('EventsController@index');
 	}
 	/**
 	 * Remove the specified resource from storage.
@@ -168,7 +176,11 @@ class EventsController extends \BaseController {
 
     public function getManage()
     {
-        return View::make('events.manage');
+        $query = CalendarEvent::with('user');
+
+        $events = $query->get();
+        
+        return View::make('events.manage')->with(array('events' => $events));
     }
 
     public function getList()

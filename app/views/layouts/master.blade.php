@@ -17,6 +17,7 @@
     <!-- Custom CSS -->
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -88,8 +89,7 @@
 
 
 
-    <!-- jQuery -->
-    <script src="/js/jquery.js"></script>
+    
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap.min.js"></script>
     <!-- JavaScript for sidebar woop woop -->

@@ -1,6 +1,4 @@
 
-{{-- TO BE EDITED --}}
-
 @extends('layouts.master')
 <style>
 
@@ -12,8 +10,33 @@ table {
 	color: rgba(255,255,255,1);
 }
 
-.showmodal{
+.modal-body{
 	color: black;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.div-button
+{
+    margin-left: 20px;
 }
 
 </style>
@@ -21,8 +44,8 @@ table {
 
 @section('content')
 
-	<div ng-app="angularManage">
-		<div class="container" ng-controller="ManageController">
+	<div>
+		<div class="container">
 			<h2 class='manage'>Manage Events<h2>
 			<table class='table table-bordered'>
 				<tr>
@@ -33,8 +56,9 @@ table {
 					<th>Edit Post</th>
 					<th>Remove Post</th>
 				</tr>
-				<tr ng-repeat="event in events">
-					<td><a href="#" data-toggle="modal" data-target="">@{{event.title}}</a>
+				@foreach($events as $event)
+				<tr>
+					<td><a href="#" data-toggle="modal" data-target="">{{ $event->title }}</a>
 
 					{{-- DISPLAY MODAL --}}
     
@@ -43,30 +67,136 @@ table {
 				    {{-- END DISPLAY MODAL --}}
 
 					</td>
-					<td>@{{ event.date }}</td>
-					<td>@{{ event.location }}</td>
-					<td>@{{ event.start_time }}</td>
+					<td>{{ $event->date }}</td>
+					<td>{{ $event->location }}</td>
+					<td>{{ $event->start_time }}</td>
 
-					<td><btn class="btn btn-warning" data-toggle="modal" data-target="">Edit</btn>
+					<td><btn class="btn btn-warning" data-toggle="modal" data-target="#editModal{{ $event->id }}">Edit</btn>
 
 					{{-- EDIT MODAL --}}
     
-				      
+				      <div class="modal fade" id="editModal{{ $event->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ $event->id }}">
+				        <div class="modal-dialog" role="document">
+				          <div class="modal-content">
+				            <div class="modal-header">
+				              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				              <div class="modal-title showmodal" id="editModalLabel{{ $event->id }}">
+				              	<img src="{{ $event->img }}" width="100%"></div>
+				            </div>
+				            <div class="modal-body">
+				              <div>
+						        <h1 class="create">Edit Your Event</h1>
+
+						        {{ Form::model($event, array('action' => array('EventsController@update', $event->id), 'files'=>true, 'class' => 'horizontal', 'method' => 'PUT')) }}
+						            <div class="form-group">
+						                {{ Form::label('title', 'Event Name') }}
+						                {{ Form::text('title', Input::old('title'), ['class' => 'form-control']) }}
+						            </div>
+
+						            <div class="form-group">
+						                {{ Form::label('description', 'Event Description') }}
+						                {{ Form::textarea('description', Input::old('description'), ['class' => 'form-control']) }}
+						            </div>
+
+						            <div class="form-group">
+						                {{ Form::label('price', 'Cover Price: $') }}
+						                {{ Form::number('price') }}
+						            </div>
+
+						            <div class="form-group">
+						                {{ Form::label('date', 'Event Date') }}
+						                {{ Form::date('date') }}
+						            </div>
+
+						            <div class="form-group">
+						                {{ Form::label('start_time', 'Start Time') }}
+						                {{ Form::time('start_time')}}
+						            </div>
+
+						            <div class="form-group">
+						                {{ Form::label('end_time', 'End Time') }}
+						                {{ Form::time('end_time') }}
+						            </div>
+
+						            <div class="form-group">
+						                {{ Form::label('location', 'Location') }}
+						                {{ Form::text('location', Input::old('location'), ['class' => 'form-control']) }}
+						            </div>
+
+						            <div class="form-group">
+						                {{ Form::label('address', 'Address') }}
+						                {{ Form::text('address', Input::old('address'), ['class' => 'form-control']) }}
+						            </div>
+
+						            <div class="form-group">
+						                {{ Form::label('city', 'City') }}
+						                {{ Form::text('city', Input::old('city'), ['class' => 'form-control']) }}
+						            </div>
+
+						            <div class="form-group">
+						                {{ Form::label('state', 'State') }}
+						                {{ Form::text('state', Input::old('state'), ['class' => 'form-control']) }}
+						            </div>
+
+						            <div class="form-group">
+						                {{ Form::label('zip', 'Zip Code') }}
+						                {{ Form::text('zip', Input::old('zip'), ['class' => 'form-control']) }}
+						            </div>
+
+						            <div class="form-group">
+						                {{-- <div class="col-md-6"> --}}
+						                {{ Form::label('img', 'Change Event Photo') }}
+						                    <div class="input-group">
+						                        <span class="input-group-btn">
+						                            <span class="btn btn-info btn-file">Browse 
+						                            {{ Form::file('img') }}
+						                            </span>
+						                        </span>
+						                        {{ Form::text('img', null, ['class' => 'form-control', 'readonly']) }}
+						                    </div>
+						                {{-- </div> --}}
+						            </div>
+						      
+						            <button class="btn btn-warning">Save Changes</button><button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Nevermind</button>
+						        {{ Form::close() }}
+						      </div>
+				            {{-- <div class="modal-footer">
+			                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+			                </div> --}}
+				          </div>
+				        </div>
+				      </div>
 				    
 				    {{-- END EDIT MODAL --}}
 				    </td>
-					<td><btn class="btn btn-danger" ng-click="">Delete</btn></td>
-
+					<td><btn class="btn btn-danger" data-toggle="modal" data-target="">Delete</btn></td>
 				</tr>
+				@endforeach
 			</table>
 		</div>
 	</div>
 
-	
-<script src="/js/jquery.js"></script>
-<script src="/js/moment.js"></script>
-<script src="/js/moment-timezone-with-data-2010-2020.js"></script>
-<script type="text/javascript" src="/js/angular.min.js"></script>
-<script type="text/javascript" src="/js/angularManage.js"></script>
+<script>
+$(document).on('change', '.btn-file :file', function() {
+  	var input = $(this),
+    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  	input.trigger('fileselect', [numFiles, label]);
+});
 
+$(document).ready( function() {
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+    });
+});
+
+</script>
 @stop
