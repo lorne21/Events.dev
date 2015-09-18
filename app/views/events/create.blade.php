@@ -94,7 +94,8 @@ label{
             </div>
 
             <div class="form-group">
-                <div class="col-md-6">
+                {{-- <div class="col-md-6"> --}}
+                    {{ Form::label('img', 'Add Event Photo') }}
                     <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-info btn-file">Upload Image 
@@ -103,11 +104,11 @@ label{
                         </span>
                         {{ Form::text('img', null, ['class' => 'form-control', 'readonly']) }}
                     </div>
-                </div>
+                {{-- </div> --}}
             </div>
             <div class="clearfix"></div>
             <br>
-            <button class="btn btn-primary">Create Event!</button>
+            <button class="btn btn-primary">Post Event!</button>
         {{ Form::close() }}
       </div>
  

@@ -9,7 +9,7 @@ class EventsTableSeeder extends Seeder {
 	{
 		$faker = Faker::create();
 
-		for($i=1; $i<=10; $i++)
+		for($i=1; $i<=40; $i++)
         {
             $event = new CalendarEvent();
             $event->title = $faker->catchPhrase;
@@ -17,11 +17,11 @@ class EventsTableSeeder extends Seeder {
             $event->date = $faker->dateTime;
             $event->price = $faker->numberBetween($min = 1, $max = 100);
             $event->start_time = $faker->time($format = 'H:i:s');
-            $event->location = $faker->country;
-            $event->address = $faker->streetAddress;
-            $event->city = $faker->city;
-            $event->state = $faker->state;
-            $event->zip = $faker->postcode;
+            $event->location = "Tycoon Flats";
+            $event->address = "2926 N. St. Marys Street";
+            $event->city = "San Antonio";
+            $event->state = "CA";
+            $event->zip = "78212";
             $event->img = $faker->imageUrl($width = 640, $height = 480); // 'http://lorempixel.com/640/480/'
             $event->user_id = User::all()->random(1)->id;
             $event->save();

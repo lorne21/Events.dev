@@ -14,6 +14,14 @@ table {
 	color: black;
 }
 
+.linkage:link{
+    color: white;
+}
+
+.linkage:hover{
+    color: blue;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -58,8 +66,8 @@ table {
 				</tr>
 				@foreach($events as $event)
 				<tr>
-					<td><a href="#" data-toggle="modal" data-target="">{{ $event->title }}</a>
-
+					<td><a class="linkage" href="{{{ action('EventsController@show', $event->id) }}}" >{{ $event->title }}</a>
+					{{-- data-toggle="modal" data-target="" --}}
 					{{-- DISPLAY MODAL --}}
     
 				     

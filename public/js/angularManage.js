@@ -38,66 +38,77 @@
     });
 
     app.controller('ManageController',["$http", "$log", "$scope", function($http, $log, $scope){
-        $scope.events = [];
-        $scope.currentevent = {};
+        $scope.event = [];
+        var address = "";
 
-        $http.get('/events/getList').then(function(response){
-            $log.info("Event list success");
+        $scope.loadEvent = function(eventId) {
+            $http.get('/events/' + eventId).then(function(response){
+                $log.info("Event list success");
 
-            $log.info(response);
-
-            $scope.events = response.data;
-
-            $log.info(response.data);
-
-        }, function(response){
-            $log.error("Event list fail");
-
-            $log.debug(response);
-        });
-
-        $scope.editEvent = function(index){
-            var id = $scope.events[index].id;
-            var thisevent = $scope.events[index];
-
-            $http.put("/events/"+ thisevent.id, {
-
-                "title": thisevent.title,
-                "body": thisevent.body,
-            
-            }).then(function(response){
-
-                $log.info("Edit event success");
                 $log.info(response);
 
+                $scope.event = response.data;
+
+                $log.info(response.data);
+
+                address = $scope.event.address + ", " + $scope.event.city + ", " + $scope.event.state + ", " + $scope.event.zip;
+
+
+                var geocoder = new google.maps.Geocoder();
+
+                // Geocode our address
+                geocoder.geocode( { 'address': address}, function(results, status) {
+                  // Check for a successful result
+                  if (status == google.maps.GeocoderStatus.OK) {
+                    // Set our map options
+                    var mapOptions = {
+                      // Set the zoom level
+                      zoom: 10,
+                      // This sets the center of the map at our location
+                      center: results[0].geometry.location  
+
+                    }
+                    console.log(mapOptions);
+                    // Render the map
+                    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+                    var marker = new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map: map
+                    });
+
+                    
+                    
+                    map.setCenter(results[0].geometry.location); // sets center without animation
+                    
+
+                    // var infowindow = new google.maps.InfoWindow({
+                    //     content: $scope.event.
+                    // });
+
+                  }
+                });
+
             }, function(response){
-                $log.error("Edit event fail");
+                $log.error("Event list fail");
 
                 $log.debug(response);
             });
         };
-
-
-            
-
-        $scope.deletePost = function(index){
-            
-            var thisevent = $scope.events[index];
-
-            $http.delete("/posts/"+ thisevent.id).then(function(response){
-            
-                $log.info("Delete event success");
-
-                $log.info(response);
-
-                $scope.posts.splice(index,1);
-
-            }, function(response){
-                $log.error("Delete event fail");
-
-                $log.debug(response);
-            });
-        };
-
     }]);
+
+    $(document).ready(function() {
+    $(".section").not(":first").hide();
+    $("ul#menu li:first").addClass("active").show(); 
+ 
+    $("ul#menu li").click(function() {
+        $("ul#menu li.active").removeClass("active");
+        $(this).addClass("active");
+        $(".section").slideUp();       
+        $($('a',this).attr("href")).slideDown('slow');
+ 
+        return false;
+    });
+ 
+});
 })();

@@ -43,11 +43,11 @@
     <div id="box">
         <div id="items">
             <div class="item"> <a href="{{ action('EventsController@index') }}">Browse Events</a></div>
-            <div class="item"> <a href="#">Browse Bands</a></div>
+            <div class="item"> <a href="{{ action('UsersController@index') }}">Browse Bands</a></div>
             <div class="item"> <a href="{{ action('EventsController@create') }}">Post An Event</a></div>
             <div class="item"> <a href="{{ action('EventsController@getManage') }}">Manage Events</a></div>
             <div class="item"> <a href="#">Manage Profile</a></div>  
-            <div class="item"> <a href="#">Sign Up Your Band</a></div>
+            <div class="item"> <a href="{{ action('UsersController@create') }}">Sign Up Your Band</a></div>
             <div class="item"> <a data-toggle="modal" data-target="#loginModal" href="#" style="text-color:black;">Login</a></div>
             <div class="item"> <a href="{{ action('HomeController@doLogout') }}">Logout</a></div>
         </div>
@@ -88,8 +88,8 @@
     <!-- /#wrapper -->
 
 
-
-    
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap.min.js"></script>
     <!-- JavaScript for sidebar woop woop -->

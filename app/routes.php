@@ -17,9 +17,11 @@ Route::get('/', function()
 
 Route::get('events/manage', 'EventsController@getManage');
 
-Route::get('events/getList', 'EventsController@getList');
+Route::get('events/getEvent/{$id}', 'EventsController@getEvent');
 
 Route::resource('events', 'EventsController');
+
+Route::resource('users', 'UsersController');
 
 Route::get('login', 'HomeController@showLogin');
 
